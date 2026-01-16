@@ -15,7 +15,6 @@ def get_items():
 
 @router.get("/{id}", response_model=Item_Response)
 def get_item(id: int):
-    # return item from the items list based on the provided id
     for item in items:
         if item.id == id:
             return item

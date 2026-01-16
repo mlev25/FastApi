@@ -15,12 +15,10 @@ def get_users():
 
 @router.post("/", response_model=User_Response)
 def create_user(user: User):
-    # Check if user with the same id already exists
     for existing_user in users:
         if existing_user.id == user.id:
             raise HTTPException(status_code=400, detail="User with this ID already exists")
     
-    # Add the new user to the list
     users.append(user)
     return User_Response(id=user.id, full_name=user.full_name)
 
@@ -36,7 +34,6 @@ def delete_user(id: int):
 
 @router.get("/{id}", response_model=User)
 def get_user(id: int):
-    # return user from the users list based on the provided id
     for user in users:
         if user.id == id:
             return user
