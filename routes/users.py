@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from models.user import User, User_Response
 
 router = APIRouter()
@@ -23,12 +23,12 @@ def create_user(user: User):
     return User_Response(id=user.id, full_name=user.full_name)
 
 
-@router.delete("/{id}", response_model=User_Response)
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_user(id: int):
     for idx, user in enumerate(users):
         if user.id == id:
-            removed_user = users.pop(idx)
-            return removed_user
+            users.pop(idx)
+            return status.HTTP_204_NO_CONTENT
     raise HTTPException(status_code=404, detail="User not found")
 
 

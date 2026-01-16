@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from models.item import Item, Item_Response
+from typing import List
 
 router = APIRouter()
 
@@ -9,7 +10,7 @@ items = [
     Item(id=3, name="Item3", description="Description of Item3", price=30.0),
 ]
 
-@router.get("/")
+@router.get("/", response_model=List[Item_Response])
 def get_items():
     return items
 
